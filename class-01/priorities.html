@@ -46,6 +46,25 @@
     var currentPriority = ""
     var currentPriorityLevel = 1
     var priorities = []
+    
+    function drawPriorities() {
+      var list = document.getElementById("priority-list")
+      var currentPriorities = priorities
+        .sort((x,y) => x.level - y.level)
+        .map(x => {
+          return `<li class="list-group-item">
+          <span class="badge badge-primary badge-pill"> ${x.level} </span>
+          <span>${x.name}</span>
+          <span class="float-buttons">
+            <button onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
+            <button onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
+          </span>
+          </li>`
+        })
+        
+      list.innerHTML = currentPriorities
+    }
+    
     function addNewPriority(event){
       priorities.push({name: currentPriority, level: currentPriorityLevel})
       drawPriorities()
@@ -64,34 +83,19 @@
 
     function makeHigherPriority(name) {
       var priority = priorities.find(p => p.name === name)
-      priority.level = priority.level - 1
+      if (priority.level > 1) {
+        priority.level = priority.level - 1};
+
 
       drawPriorities()
     }
 
     function makeLowerPriority(name) {
       var priority = priorities.find(p => p.name === name)
-      priority.level = priority.level + 1
+      if (priority.level < priorities.length) {
+      priority.level = priority.level + 1};
 
       drawPriorities()
-    }
-
-    function drawPriorities() {
-      var list = document.getElementById("priority-list")
-      var currentPriorities = priorities
-        .sort((x,y) => x.level - y.level)
-        .map(x => {
-          return `<li class="list-group-item">
-          <span class="badge badge-primary badge-pill"> ${x.level} </span>
-          <span>${x.name}</span>
-          <span class="float-buttons">
-            <button onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
-            <button onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
-          </span>
-          </li>`
-        })
-        .join("")
-      list.innerHTML = currentPriorities
     }
 
     drawPriorities()
