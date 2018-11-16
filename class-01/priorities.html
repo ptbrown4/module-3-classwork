@@ -63,7 +63,7 @@
       var priority = priorities.find(p => p.name === name)
       if (priority.level > 1) {
         priority.level = priority.level - 1};
-
+        
 
       drawPriorities()
     }
@@ -76,6 +76,8 @@
       drawPriorities()
     }
 
+    
+
     function drawPriorities() {
       var list = document.getElementById("priority-list")
       var currentPriorities = priorities
@@ -87,6 +89,7 @@
           <span class="float-buttons">
             <button onclick="return makeHigherPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-primary">Make Higher Priority</button>
             <button onclick="return makeLowerPriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">Make Lower Priority</button>
+            <button onclick="return deletePriority('${x.name}')" type="button" class="btn btn-sm btn-outline-secondary">X</button>
           </span>
           </li>`
         })
@@ -94,9 +97,19 @@
       list.innerHTML = currentPriorities
     }
 
+// function deletePriority(name) {
+//       var priority = priorities.find(p => p.name === name)
+//        var element = document.getElementById('node'+priorities.children.length);
+//        element.parentNode.removeChild(element);
+//     }
     drawPriorities()
 
+function deletePriority(name) {
+  var priority = priorities.find(p => p.name === name)
+  $(currentPriorities).remove(currentPriorities)
 
+  drawPriorities()
+}
   </script>
 </body>
 </html>
