@@ -87,10 +87,11 @@
         return
       };
 
-      // var higherPrior = priorities.find(z => z.level === priority.level);
+      priorities.reverse();
+      var lowerPrior = priorities.find(z => z.level === priority.level);
       
-      // if (priority.level === higherPrior.level) {
-      // higherPrior.level = higherPrior.level - 1};
+      if (lowerPrior.level === priority.level) {
+      lowerPrior.level = lowerPrior.level - 1}
 
       drawPriorities()
     };
