@@ -31,7 +31,7 @@
         <input type="text" class="form-control" onchange="return priorityChange(event)" id="exampleInputPriority1" placeholder="Enter a priority.... like Family">
       </div>
       
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" onclick="getElementById('exampleInputPriority1').value=''" class="btn btn-primary">Submit</button>
     </form>
     <ul id="priority-list" class="list-group"> </ul>
   </div>
@@ -45,9 +45,9 @@
     var currentPriorityLevel = priorities.length
     
     
-    function addNewPriority(event){
-      priorities.push({name: currentPriority, level: currentPriorityLevel})
-      drawPriorities()
+    function addNewPriority(event){ 
+      priorities.push({name: currentPriority, level: currentPriorityLevel}); 
+      drawPriorities();
       return false;
     }
 
@@ -60,21 +60,40 @@
     
 
     function makeHigherPriority(name) {
-      var priority = priorities.find(p => p.name === name)
+      var priority = priorities.find(p => p.name === name);
+      
       if (priority.level > 1) {
-        priority.level = priority.level - 1};
+        priority.level = priority.level - 1}
+      else if (priority.level === 1) {
+          alert("This is your top priority!")
+          return
+        };
+        var higherPrior = priorities.find(z => z.level === priority.level);
+      
+        if (priority.level === higherPrior.level) {
+        higherPrior.level = higherPrior.level + 1}
+        
         
 
       drawPriorities()
-    }
+    };
 
     function makeLowerPriority(name) {
       var priority = priorities.find(p => p.name === name)
       if (priority.level < priorities.length) {
-      priority.level = priority.level + 1};
+      priority.level = priority.level + 1}
+      else if (priority.level === priorities.length) {
+        alert("This is your last priority")
+        return
+      };
+
+      // var higherPrior = priorities.find(z => z.level === priority.level);
+      
+      // if (priority.level === higherPrior.level) {
+      // higherPrior.level = higherPrior.level - 1};
 
       drawPriorities()
-    }
+    };
 
     
 
@@ -83,7 +102,7 @@
       var currentPriorities = priorities
         .sort((x,y) => x.level - y.level)
         .map(x => {
-          return `<li class="list-group-item">
+          return `<li id="prior" class="list-group-item">
           <span class="badge badge-primary badge-pill"> ${x.level} </span>
           <span>${x.name}</span>
           <span class="float-buttons">
@@ -97,19 +116,20 @@
       list.innerHTML = currentPriorities
     }
 
-// function deletePriority(name) {
-//       var priority = priorities.find(p => p.name === name)
-//        var element = document.getElementById('node'+priorities.children.length);
-//        element.parentNode.removeChild(element);
-//     }
+// Trying to create a delete button
+function deletePriority(name) {
+    var mistakePriority = name.target.value;
+    $(mistakePriority).remove(mistakePriority);
+    }
+
     drawPriorities()
 
-function deletePriority(name) {
-  var priority = priorities.find(p => p.name === name)
-  $(currentPriorities).remove(currentPriorities)
-
-  drawPriorities()
-}
+// Trying to create a delete button
+// function deletePriority(name) {
+//   var priority = priorities.find(p => p.name === name)
+//   var currentLi = 
+//   $(currentPriorities).remove(currentPriorities)
+// }
   </script>
 </body>
 </html>
